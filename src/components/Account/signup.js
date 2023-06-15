@@ -22,6 +22,24 @@ export default function Form() {
         </div>
         <div className="mb-3 text-center">
           <label htmlFor="email" className="form-label">
+            Username
+          </label>
+          <div className="mx-auto" style={{ width: "300px" }}>
+            <input
+              type="name"
+              className="form-control"
+              id="name"
+              {...register("name", {
+                required: true,
+              })}
+            />
+          </div>
+          {errors.name && (
+            <p className="text-danger">Name is required</p>
+          )}
+        </div>
+        <div className="mb-3 text-center">
+          <label htmlFor="email" className="form-label">
             Email
           </label>
           <div className="mx-auto" style={{ width: "300px" }}>
