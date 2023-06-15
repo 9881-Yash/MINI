@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Signin() {
   const {
@@ -9,6 +10,10 @@ export default function Signin() {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
   return (
     <div className="container">
@@ -75,6 +80,10 @@ export default function Signin() {
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
+        </div>
+        <div className="mb-3">
+          New customer?{' '}
+          <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
         </div>
       </form>
     </div>

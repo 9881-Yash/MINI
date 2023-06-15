@@ -29,7 +29,6 @@ export default function Form() {
               type="email"
               className="form-control"
               id="email"
-              placeholder="Enter primary email"
               {...register("email", {
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
@@ -52,7 +51,6 @@ export default function Form() {
               type="tel"
               className="form-control"
               id="mobile"
-              placeholder="Enter mobile number"
               {...register("mobile", {
                 required: true,
                 minLength: 10,
@@ -83,7 +81,6 @@ export default function Form() {
               type="password"
               className="form-control"
               id="password"
-              placeholder="Enter password"
               {...register("password", {
                 required: true,
                 minLength: 5,
@@ -114,7 +111,6 @@ export default function Form() {
               type="password"
               className="form-control"
               id="confirmPassword"
-              placeholder="Confirm password"
               {...register("confirmPassword", {
                 required: true,
                 validate: (value) => value === password,
