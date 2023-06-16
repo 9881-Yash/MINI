@@ -2,14 +2,23 @@ import { Link } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import { useContext } from 'react';
 import { Store } from '../../Store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const Headers = () => {
-  const { state } = useContext(Store);
-  const { cart } = state;
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart, userInfo } = state;
+
+  const signoutHandler = () => {
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+  }
+
   return (
     <>
       <div className="superNav border-bottom py-2 bg-light">
         <div className="container">
+          <ToastContainer position="bottom-center" limit={1}></ToastContainer>
           <div className="row">
             <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
               <span className="d-none d-lg-inline-block d-md-inline-block d-sm-inline-block d-xs-none me-3">
@@ -216,16 +225,35 @@ const Headers = () => {
                   Account
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="submenu3">
+                {userInfo ? (
+                  <>
                   <li>
-                    <Link className="dropdown-item" to="/signin">
-                      Sign In
-                    </Link>
-                  </li>
-                  <li>
+                  <Link className="dropdown-item" to="/profile">
+                    Your Profile
+                  </Link>
+                </li>
+                <li>
+                <Link className="dropdown-item" to="/orderhistory">
+                  Order History
+                </Link>
+                <hr></hr>
+                <Link className="dropdown-item" to="#signout" onClick={signoutHandler}>
+                  Sign out
+                </Link>
+              </li>
+              </>
+                ) : (
+                <li>
+                  <Link className="dropdown-item" to="/signin">
+                    Sign In
+                  </Link>
+                </li>
+                )}
+                  {/* <li>
                     <Link className="dropdown-item" to="/signup">
                       Sign Up
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
             </ul>

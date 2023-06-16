@@ -1,6 +1,11 @@
 import React from "react";
+import { useContext, useEffect } from 'react';
+import { Store } from '../../Store';
 import { useForm } from "react-hook-form";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate  } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from "react-toastify";
+import { getError } from '../../utils';
 
 export default function Signin() {
   const {
@@ -9,18 +14,39 @@ export default function Signin() {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectInUrl ? redirectInUrl : '/';
 
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('api/users/signin', data);
+      // console.log(response);
+      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      navigate(redirect || '/');console.log(response.data); 
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
+
+
   return (
     <div className="container">
       <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="text-centre" style= {{ margin: "100px 0 50px 0" }}>
-            <h2>Login</h2>
-            <img src={process.env.PUBLIC_URL + '/assets/images/line_star.png'}></img>
+        <div className="text-center" style={{ margin: "100px 0 50px 0" }}>
+          <h2>Login</h2>
+          <img src={process.env.PUBLIC_URL + '/assets/images/line_star.png'} alt="Logo" />
         </div>
         <div className="mb-3 text-center">
           <label htmlFor="email" className="form-label">
