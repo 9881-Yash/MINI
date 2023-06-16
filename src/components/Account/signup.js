@@ -1,17 +1,63 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Store } from "../../Store";
+import { toast } from "react-toastify";
+import { getError } from "../../utils";
+import axios from "axios";
 
-export default function Form() {
+export default function Signup() {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    watch,
+    watch
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
-  const password = watch("password"); // Get the value of the password field
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [mobile, setMobile] = useState('');
+
+
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const response = await axios.post('api/users/signup', data);
+  //     ctxDispatch({type: 'USER_SIGNIN', payload: data})
+  //     localStorage.setItem('userInfo', JSON.stringify(data));
+  //     navigate(redirect || '/');
+  //   } catch(error) {
+  //     toast.error(getError(error));
+  //   }
+  // };
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post("api/users/signup", data);
+      ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      navigate(redirect || "/");
+    } catch (error) {
+      const errorMessage = getError(error);
+      toast.error(errorMessage);
+    }
+  };
+
+  useEffect(() => {
+    if(userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
+
+  const password = watch("password"); 
 
   return (
     <div className="container">

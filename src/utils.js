@@ -1,8 +1,13 @@
-export const getError = (error) =>{
-    return error.message && error.response.data.message 
-    ? error.response.data.message
-    : error.message;
-}
+export const getError = (error) => {
+    if (error.response && error.response.data && error.response.data.message) {
+      return error.response.data.message;
+    } else if (error.message) {
+      return error.message;
+    } else {
+      return "An error occurred.";
+    }
+  };
+  
 
 export function validation(values) {
     const errors = {}
