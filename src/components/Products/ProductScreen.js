@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Rating from "../Rating";
 import LoadingBox from "../LoadingBox";
@@ -32,31 +32,36 @@ function ProductScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
+      dispatch({ type: 'FETCH_REQUEST' });
       try {
         const result = await axios.get(`/api/products/slug/${slug}`);
-        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
-
-      // setProducts(result.data);
     };
     fetchData();
   }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart } = state;
-  const addTocartHandler = async () => {
+
+  let [stockFlag, setStockFlag] = useState(true);
+
+  const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    // const { data } = await axios.get(`/api/products/${product._id}`);
-    const response = await fetch(`/api/products/${product._id}`);
-    const data = await response.json();
+    const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry. Product is out of stock');
+      // window.alert('Sorry. Product is out of stock');
+      stockFlag = false;
+      setStockFlag(stockFlag);
+      return;
     }
-    ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity} })
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    });
     navigate('/cart');
   };
 
@@ -98,19 +103,20 @@ function ProductScreen() {
                     <tr>
                       <th scope="col">Collections</th>
                       <th scope="col">Category</th>
-                      <th scope="col">Count in Stock</th>
+                      {/* <th scope="col">Count in Stock</th> */}
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>{product.collections}</td>
                       <td>{product.category}</td>
-                      <td>{product.countInStock}</td>
+                      {/* <td>{product.countInStock}</td> */}
+                      {/* <td>{cartItems.quantity}</td> */}
                     </tr>
                   </tbody>
                 </table>
                 <p></p>
-                {product.countInStock > 0 ? <button className="btn btn-light" onClick={() => addTocartHandler()}>
+                {product.countInStock > 0 && stockFlag ? <button className="btn btn-light" onClick={() => addToCartHandler()}>
                   Add to cart
                 </button>
                   :

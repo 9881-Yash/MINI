@@ -27,7 +27,7 @@ export default function PaymentMethodScreen() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{margin: "50px auto 0 auto"}}>
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="small-container">
       <div className="text-centre" style={{ margin: "30px 0 50px 0" }}>
