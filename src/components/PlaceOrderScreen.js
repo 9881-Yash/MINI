@@ -1,15 +1,36 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Axios from 'axios';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
+import LoadingBox from '../components/LoadingBox';
+
+const reducer = (state, action) => {
+  switch(action.type) {
+    case 'CREATE_REQUEST':
+      return { ...state, loading: true };
+    case 'CREATE_SUCCESS':
+      return { ...state, loading: false};
+    case 'CARETE_FAILURE':
+      return { ...state, loading: false};
+    default:
+      return state; 
+  }
+}
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
+
+  const [{loading}, dispatch] = useReducer(reducer, {
+    loading: false
+  })
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
-  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
+  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; 
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
@@ -17,7 +38,32 @@ export default function PlaceOrderScreen() {
   cart.taxPrice = round2(0.18 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const placeOrderHandler = async () => {};
+  const placeOrderHandler = async () => {
+    try {
+      dispatch({ type: 'CREATE_REQUEST' });
+
+      const { data } = await Axios.post(
+        '/api/orders',
+        {
+          orderItems: cart.cartItems,
+          shippingAddress: cart.shippingAddress,
+          paymentMethod: cart.paymentMethod,
+          itemsPrice: cart.itemsPrice,
+          shippingPrice: cart.shippingPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice,
+          userEmail: userInfo.email
+        },
+      );
+      ctxDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREATE_SUCCESS' });
+      localStorage.removeItem('cartItems');
+      navigate(`/order/${data.order._id}`);
+    } catch (err) {
+      dispatch({ type: 'CREATE_FAIL' });
+      toast.error(getError(err));
+    }
+  };
 
   useEffect(() => {
     if (!cart.paymentMethod) {
@@ -128,6 +174,7 @@ export default function PlaceOrderScreen() {
                       Place Order
                     </button>
                   </div>
+                  {loading && <LoadingBox></LoadingBox>}
                 </li>
               </ul>
             </div>
