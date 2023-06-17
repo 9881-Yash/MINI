@@ -12,6 +12,7 @@ import ContactUs from './components/Contact';
 import { AboutUs } from './components/AboutUs';
 import CartScreen from './components/CartScreen';
 import ShippingAddressScreen from './components/ShippingAddressScreen';
+import PaymentMethodScreen from './components/PaymentMethodScreen';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path='/aboutus' element={<AboutUs/>}></Route>
           <Route path="/cart" element={<CartScreen />} />
           <Route path='/shipping' element={<ShippingAddressScreen/>}></Route>
+          <Route path='/payment' element={<PaymentMethodScreen/>}></Route>
         </Routes>
       <Footer/>
       </div>
