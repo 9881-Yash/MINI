@@ -63,7 +63,7 @@ export default function ProfileScreen() {
   return (
     <div className="container small-container">
         <div className="text-centre" style={{ margin: "100px 0 50px 0" }}>
-        <h2>User Profile</h2>
+        <h2>Update Your Information</h2>
         <img
           src={process.env.PUBLIC_URL + "/assets/images/line_star.png"}
         ></img>
