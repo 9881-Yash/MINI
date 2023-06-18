@@ -119,11 +119,9 @@ export default function SearchScreen() {
 
   return (
     <div className='container'>
-      <div className="text-centre" style={{ margin: "50px 0 50px 0" }}>
+      <div className="text-center" style={{ margin: "25px 0 25px 0" }}>
         <h2>Search Results</h2>
-        <img
-          src={process.env.PUBLIC_URL + "/assets/images/line_star.png"}
-        ></img>
+        <img src={process.env.PUBLIC_URL + "/assets/images/line_star.png"} alt="line star"></img>
       </div>
       <div className="row">
         <div className="col-md-3">
@@ -204,28 +202,25 @@ export default function SearchScreen() {
             <div>{error}</div>
           ) : (
             <>
-              <div className="d-flex justify-content-between mb-3">
-                <div className="col-md-6">
-                  <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
-                    {query !== 'all' && `: ${query}`}
-                    {category !== 'all' && `: ${category}`}
-                    {price !== 'all' && `: Price ${price}`}
-                    {rating !== 'all' && `: Rating ${rating} & up`}
-                    {(query !== 'all' || category !== 'all' || rating !== 'all' || price !== 'all') && (
-                      <button className="btn btn-light" onClick={() => navigate('/search')}>
-                        <i className="fas fa-times-circle"></i>
-                      </button>
-                    )}
-                  </div>
+              <div className="d-flex justify-content-between mb-3 align-items-center">
+                <div>
+                  {countProducts === 0 ? 'No' : countProducts} Results
+                  {query !== 'all' && `: ${query}`}
+                  {category !== 'all' && `: ${category}`}
+                  {price !== 'all' && `: Price ${price}`}
+                  {rating !== 'all' && `: Rating ${rating} & up`}
+                  {(query !== 'all' || category !== 'all' || rating !== 'all' || price !== 'all') && (
+                    <button className="btn btn-light ms-3" onClick={() => navigate('/search')}>
+                      Clear
+                    </button>
+                  )}
                 </div>
-                <div className="text-end">
+                <div>
                   Sort by{' '}
                   <select
+                    className="form-select"
                     value={order}
-                    onChange={(e) => {
-                      navigate(getFilterUrl({ order: e.target.value }));
-                    }}
+                    onChange={(e) => navigate(getFilterUrl({ order: e.target.value }))}
                   >
                     <option value="newest">Newest Arrivals</option>
                     <option value="lowest">Price: Low to High</option>
@@ -234,12 +229,9 @@ export default function SearchScreen() {
                   </select>
                 </div>
               </div>
-              {products.length === 0 && <div>No Product Found</div>}
               <div className="row">
                 {products.map((product) => (
-                  <div key={product._id}>
-                    <Product product={product}></Product>
-                  </div>
+                  <Product key={product._id} product={product} />
                 ))}
               </div>
               <div>
