@@ -40,8 +40,13 @@ export default function CartScreen() {
   };
 
   return (
-    <div>
-      <h1>Shopping Cart</h1>
+    <div className='container'>
+      <div className="text-centre" style={{ margin: "50px 0 50px 0" }}>
+        <h2>Shopping Cart</h2>
+        <img
+          src={process.env.PUBLIC_URL + "/assets/images/line_star.png"}
+        ></img>
+      </div>
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -58,6 +63,7 @@ export default function CartScreen() {
                         src={item.image}
                         alt={item.name}
                         className="img-fluid rounded img-thumbnail"
+                        style={{"width" : "50%"}}
                       ></img>{' '}
                       <Link to={`/products/${item.slug}`}>{item.name}</Link>
                     </Col>
@@ -82,7 +88,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>&#8377;{item.price}</Col>
+                    <Col md={3}><h4>&#8377;{item.price}</h4></Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
@@ -104,7 +110,7 @@ export default function CartScreen() {
                 <ListGroup.Item>
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : $
+                    items) : &#8377;
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>

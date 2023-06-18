@@ -1,21 +1,30 @@
-import { Link } from "react-router-dom";
-import Badge from 'react-bootstrap/Badge';
-import { useContext } from 'react';
-import { Store } from '../../Store';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import { Link, useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
+import { useContext, useState } from "react";
+import { Store } from "../../Store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Headers = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
   const signoutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT' });
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('shippingAddress');
-    localStorage.removeItem('paymentMethod');
-  }
+    ctxDispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("paymentMethod");
+    window.location.href = "/signin";
+  };
 
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate(query ? `search/?query=${query}` : '/search')
+    e.target.reset();
+  }
+  
   return (
     <>
       <div className="superNav border-bottom py-2 bg-light">
@@ -67,33 +76,38 @@ const Headers = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
+          <form onSubmit={submitHandler}>
           <div className="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div className="input-group">
-              {/* <span className="border-danger input-group-text bg-danger text-white">
-                <i className="fa-solid fa-magnifying-glass" />
-              </span> */}
               <input
                 type="text"
+                name="q"
+                id="q"
+                onChange={(e) => setQuery(e.target.value)}
                 className="form-control border-dark"
                 style={{ color: "#7a7a7a" }}
               />
-              <button className="btn btn-dark text-white">Search</button>
+              <button className="btn btn-dark text-white" type="submit" id="button-search">Search</button>
             </div>
           </div>
+          </form>
           <div className=" collapse navbar-collapse" id="navbarNavDropdown">
+            <form onSubmit={submitHandler}>
             <div className="ms-auto d-none d-lg-block">
               <div className="input-group">
-                {/* <span className="border-danger input-group-text bg-danger text-white">
-                  <i className="fa-solid fa-magnifying-glass" />
-                </span> */}
                 <input
                   type="text"
+                  name="q"
+                  id="q"
+                  onChange={(e) => setQuery(e.target.value)}
                   className="form-control border-dark"
                   style={{ color: "#7a7a7a" }}
                 />
-                <button className="btn btn-dark text-white">Search</button>
+                <button className="btn btn-dark text-white" type="submit" id="button-search">Search</button>
               </div>
             </div>
+            </form>
+            
             <ul className="navbar-nav ms-auto ">
               <li className="nav-item">
                 <Link
@@ -122,81 +136,47 @@ const Headers = () => {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="submenu1">
                   <li>
-                    <Link className="dropdown-item" to="/category/Bangle">
+                    <Link className="dropdown-item" to={`/search?category=Bangle`}>
                       BANGLE
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Bracelet">
+                    <Link className="dropdown-item" to="/search?category=Bracelet">
                       BRACELET
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Chain">
+                    <Link className="dropdown-item" to="/search?category=Chain">
                       CHAIN
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Earings">
+                    <Link className="dropdown-item" to="/search?category=Earings">
                       EARINGS
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Mangalsutra">
+                    <Link className="dropdown-item" to="/search?category=Mangalsutra">
                       MANGALSUTRA
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Necklace">
+                    <Link className="dropdown-item" to="/search?category=Necklace">
                       NECKLACE
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Pendent">
+                    <Link className="dropdown-item" to="/search?category=Pendent">
                       PENDENT
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/category/Rings">
+                    <Link className="dropdown-item" to="/search?category=Rings">
                       RINGS
                     </Link>
                   </li>
                 </ul>
               </li>
-              {/* <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle mx-2 text-uppercase"
-                  href="#"
-                  id="submenu2"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Collections
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="submenu2">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      GOLD
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      DIAMOND
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      POLKI
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      BABY COLLECTIONS
-                    </a>
-                  </li>
-                </ul>
-              </li> */}
               <li className="nav-item">
                 <Link className="nav-link mx-2 text-uppercase" to="/contactus">
                   Contact Us
@@ -227,30 +207,34 @@ const Headers = () => {
                   Account
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="submenu3">
-                {userInfo ? (
-                  <>
-                  <li>
-                  <Link className="dropdown-item" to="/profile">
-                    Your Profile
-                  </Link>
-                </li>
-                <li>
-                <Link className="dropdown-item" to="/orderhistory">
-                  Order History
-                </Link>
-                <hr></hr>
-                <Link className="dropdown-item" to="#signout" onClick={signoutHandler}>
-                  Sign out
-                </Link>
-              </li>
-              </>
-                ) : (
-                <li>
-                  <Link className="dropdown-item" to="/signin">
-                    Sign In
-                  </Link>
-                </li>
-                )}
+                  {userInfo ? (
+                    <>
+                      <li>
+                        <Link className="dropdown-item" to="/profile">
+                          Your Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/orderhistory">
+                          Order History
+                        </Link>
+                        <hr></hr>
+                        <Link
+                          className="dropdown-item"
+                          to="#signout"
+                          onClick={signoutHandler}
+                        >
+                          Sign out
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <Link className="dropdown-item" to="/signin">
+                        Sign In
+                      </Link>
+                    </li>
+                  )}
                   {/* <li>
                     <Link className="dropdown-item" to="/signup">
                       Sign Up

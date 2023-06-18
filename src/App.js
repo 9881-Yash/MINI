@@ -14,6 +14,10 @@ import CartScreen from './components/CartScreen';
 import ShippingAddressScreen from './components/ShippingAddressScreen';
 import PaymentMethodScreen from './components/PaymentMethodScreen';
 import PlaceOrderScreen from './components/PlaceOrderScreen';
+import OrderScreen from './components/OrderScreen';
+import OrderHistoryScreen from './components/OrderHistoryScreen';
+import ProfileScreen from './components/ProfileScreen';
+import SearchScreen from './components/SearchScreen';
 
 function App() {
   return (
@@ -36,7 +40,11 @@ function App() {
           <Route path="/cart" element={<CartScreen />} />
           <Route path='/shipping' element={<ShippingAddressScreen/>}></Route>
           <Route path='/payment' element={<PaymentMethodScreen/>}></Route>
+          <Route path="/order/:id" element={<OrderScreen/>}></Route>
           <Route path='/placeorder' element={<PlaceOrderScreen/>}></Route>
+          <Route path='/orderhistory' element={<OrderHistoryScreen/>}></Route>
+          <Route path="/profile" element={<ProfileScreen />} />
+          <Route path='/search' element={<SearchScreen/>}></Route>
         </Routes>
       <Footer/>
       </div>
