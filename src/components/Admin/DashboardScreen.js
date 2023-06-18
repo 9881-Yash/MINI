@@ -31,6 +31,7 @@ export default function DashboardScreen() {
       countInStock: product.countInStock,
       rating: product.rating,
       price: product.price,
+      id: product._id
     });
     setShow(true);
   };
@@ -83,9 +84,10 @@ export default function DashboardScreen() {
     countInStock: "",
     rating: "",
     price: "",
+    id: ""
   });
 
-  const { name, description, countInStock, rating, price } = formData;
+  const { name, description, countInStock, rating, price, id } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -94,10 +96,11 @@ export default function DashboardScreen() {
   const handleSubmit = async (e) => {
     // Added e parameter to prevent form submission
     e.preventDefault(); // Prevent default form submission
+    // console.log(formData)
 
     try {
       const response = await axios.put(
-        `/api/products/edit/${productId}`, // Use the productId in the URL
+        `/api/products/edit/${formData.id}`, // Use the productId in the URL
         formData
       );
       const { data } = response;
@@ -185,6 +188,16 @@ export default function DashboardScreen() {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
+          <div className="form-group">
+              <label>Id:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="name"
+                value={id}
+                disabled
+              />
+            </div>
             <div className="form-group">
               <label>Name:</label>
               <input

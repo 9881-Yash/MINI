@@ -42,7 +42,7 @@ export default function Signin() {
 
 
   return (
-    <div className="container">
+    <div className="container signin">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-center" style={{ margin: "100px 0 50px 0" }}>
           <h2>Login</h2>

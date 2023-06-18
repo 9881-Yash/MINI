@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export const AboutUs = () => {
   return (
@@ -38,17 +39,17 @@ BlueStome Jewellers always appreciated by its valuable and loyal customers and i
               <div className="team-social">
                 <ul className="styled-icons">
                   <li>
-                    <a className="styled-icons-item" href="#!">
-                      <i className="fab fa-facebook-f" />
+                    <a className="styled-icons-item" target="_blank" href="https://t.me/+MXgG3ykCwLs4YjE1">
+                      <i className="fab fa-telegram" />
                     </a>
                   </li>
                   <li>
-                    <a className="styled-icons-item" href="#!">
-                      <i className="fab fa-twitter" />
+                    <a className="styled-icons-item" href="https://www.instagram.com/harshada_s04/">
+                      <i className="fab fa-instagram" />
                     </a>
                   </li>
                   <li>
-                    <a className="styled-icons-item" href="#!">
+                    <a className="styled-icons-item" href="https://www.linkedin.com/in/harshada-sonawane-858576219">
                       <i className="fab fa-linkedin-in" />
                     </a>
                   </li>
@@ -68,22 +69,23 @@ BlueStome Jewellers always appreciated by its valuable and loyal customers and i
                 <img
                   src={process.env.PUBLIC_URL + '/assets/images/T003.jpg'}
                   alt="..."
+                  className="img-fluid"
                 />
               </div>
               <div className="team-social">
                 <ul className="styled-icons">
                   <li>
-                    <a className="styled-icons-item" href="#!">
-                      <i className="fab fa-facebook-f" />
+                    <a className="styled-icons-item" target="_blank" href="https://t.me/+MXgG3ykCwLs4YjE1">
+                      <i className="fab fa-telegram" />
                     </a>
                   </li>
                   <li>
-                    <a className="styled-icons-item" href="#!">
-                      <i className="fab fa-twitter" />
+                    <a className="styled-icons-item" target="_blank" href="https://instagram.com/sarika_nemade?igshid=MzNlNGNkZWQ4Mg==">
+                      <i className="fab fa-instagram" />
                     </a>
                   </li>
                   <li>
-                    <a className="styled-icons-item" href="#!">
+                    <a className="styled-icons-item" target="_blank" href="https://www.linkedin.com/in/sarika-chaudhari-058840279">
                       <i className="fab fa-linkedin-in" />
                     </a>
                   </li>
@@ -108,17 +110,17 @@ BlueStome Jewellers always appreciated by its valuable and loyal customers and i
               <div className="team-social">
                 <ul className="styled-icons">
                   <li>
-                    <a className="styled-icons-item" href="#!">
-                      <i className="fab fa-facebook-f" />
+                    <a className="styled-icons-item" target="_blank" href="https://t.me/+MXgG3ykCwLs4YjE1">
+                      <i className="fab fa-telegram" />
                     </a>
                   </li>
                   <li>
-                    <a className="styled-icons-item" href="#!">
-                      <i className="fab fa-twitter" />
+                    <a className="styled-icons-item" target="_blank" href="https://instagram.com/samiksha_malewar?igshid=MzNlNGNkZWQ4Mg==">
+                      <i className="fab fa-instagram" />
                     </a>
                   </li>
                   <li>
-                    <a className="styled-icons-item" href="#!">
+                    <a className="styled-icons-item" target="_blank" href="https://www.linkedin.com/in/samiksha-malewar-b4a80b190">
                       <i className="fab fa-linkedin-in" />
                     </a>
                   </li>

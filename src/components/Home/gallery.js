@@ -2,7 +2,7 @@ import React from "react";
 
 const gallery = () => {
   return (
-    <div className="container">
+    <div className="container gallery">
       <div
         id="carouselExampleControls"
         className="carousel carousel-dark slide"

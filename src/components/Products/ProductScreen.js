@@ -95,7 +95,7 @@ function ProductScreen() {
                 <Rating rating={4} numReviews={20} />
                 <p></p>
                 <h4>
-                  <strong>&#8377;{14036}</strong>
+                  <strong>&#8377;{product.price}</strong>
                 </h4>
                 <p></p>
                 <table class="table table-bordered">
@@ -125,23 +125,6 @@ function ProductScreen() {
                   </div>}
 
               </main>
-            </div>
-          </div>
-        </section>
-        {/* content */}
-        <section className="bg-light border-top py-4">
-          <div className="container">
-            <div className="row gx-4">
-              <div>
-                <div className="px-0 border rounded-2 shadow-0">
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title">Similar items</h5>
-                      <div className="d-flex mb-3"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>

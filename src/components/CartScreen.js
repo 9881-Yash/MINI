@@ -40,7 +40,7 @@ export default function CartScreen() {
   };
 
   return (
-    <div className='container'>
+    <div className='container cart'>
       <div className="text-centre" style={{ margin: "50px 0 50px 0" }}>
         <h2>Shopping Cart</h2>
         <img

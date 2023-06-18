@@ -5,7 +5,7 @@ export const Footer = () => {
   return (
     <>
       <footer className="text-center text-lg-start bg-white text-muted">
-        <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"></section>
+        <section className="d-flex justify-content-center justify-content-lg-between border-bottom"></section>
         <section className="">
           <div className="container text-center text-md-start mt-5">
             <div className="row mt-3">
@@ -22,7 +22,7 @@ export const Footer = () => {
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                 <h6 className="text-uppercase fw-bold mb-4">T&C</h6>
                 <p>
-                  <Link to="/shipping" className="text-reset">
+                  <Link to="/privacy/shipping" className="text-reset">
                     Shipping Policy
                   </Link>
                 </p>

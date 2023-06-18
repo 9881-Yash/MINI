@@ -37,7 +37,7 @@ const ContactUs = () => {
             alt="line_star"
           />
         </div>
-        <img src="https://www.retail4growth.com/public/uploads/editor/2020-03-06/1583471677.jpg" alt="banner" />
+        <img className="img-fluid" src="https://www.retail4growth.com/public/uploads/editor/2020-03-06/1583471677.jpg" alt="banner" />
         <br />
         <br />
 
