@@ -18,13 +18,13 @@ const Headers = () => {
   };
 
   const navigate = useNavigate();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate(query ? `search/?query=${query}` : '/search')
+    navigate(query ? `search/?query=${query}` : "/search");
     e.target.reset();
-  }
-  
+  };
+
   return (
     <>
       <div className="superNav border-bottom py-2 bg-light">
@@ -77,23 +77,7 @@ const Headers = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <form onSubmit={submitHandler}>
-          <div className="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-            <div className="input-group">
-              <input
-                type="text"
-                name="q"
-                id="q"
-                onChange={(e) => setQuery(e.target.value)}
-                className="form-control border-dark"
-                style={{ color: "#7a7a7a" }}
-              />
-              <button className="btn btn-dark text-white" type="submit" id="button-search">Search</button>
-            </div>
-          </div>
-          </form>
-          <div className=" collapse navbar-collapse" id="navbarNavDropdown">
-            <form onSubmit={submitHandler}>
-            <div className="ms-auto d-none d-lg-block">
+            <div className="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
               <div className="input-group">
                 <input
                   type="text"
@@ -103,11 +87,39 @@ const Headers = () => {
                   className="form-control border-dark"
                   style={{ color: "#7a7a7a" }}
                 />
-                <button className="btn btn-dark text-white" type="submit" id="button-search">Search</button>
+                <button
+                  className="btn btn-dark text-white"
+                  type="submit"
+                  id="button-search"
+                >
+                  Search
+                </button>
               </div>
             </div>
+          </form>
+          <div className=" collapse navbar-collapse" id="navbarNavDropdown">
+            <form onSubmit={submitHandler}>
+              <div className="ms-auto d-none d-lg-block">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    name="q"
+                    id="q"
+                    onChange={(e) => setQuery(e.target.value)}
+                    className="form-control border-dark"
+                    style={{ color: "#7a7a7a" }}
+                  />
+                  <button
+                    className="btn btn-dark text-white"
+                    type="submit"
+                    id="button-search"
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
             </form>
-            
+
             <ul className="navbar-nav ms-auto ">
               <li className="nav-item">
                 <Link
@@ -136,12 +148,18 @@ const Headers = () => {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="submenu1">
                   <li>
-                    <Link className="dropdown-item" to={`/search?category=Bangle`}>
+                    <Link
+                      className="dropdown-item"
+                      to={`/search?category=Bangle`}
+                    >
                       BANGLE
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/search?category=Bracelet">
+                    <Link
+                      className="dropdown-item"
+                      to="/search?category=Bracelet"
+                    >
                       BRACELET
                     </Link>
                   </li>
@@ -151,22 +169,34 @@ const Headers = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/search?category=Earings">
+                    <Link
+                      className="dropdown-item"
+                      to="/search?category=Earings"
+                    >
                       EARINGS
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/search?category=Mangalsutra">
+                    <Link
+                      className="dropdown-item"
+                      to="/search?category=Mangalsutra"
+                    >
                       MANGALSUTRA
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/search?category=Necklace">
+                    <Link
+                      className="dropdown-item"
+                      to="/search?category=Necklace"
+                    >
                       NECKLACE
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/search?category=Pendent">
+                    <Link
+                      className="dropdown-item"
+                      to="/search?category=Pendent"
+                    >
                       PENDENT
                     </Link>
                   </li>
@@ -195,6 +225,36 @@ const Headers = () => {
                   )}
                 </Link>
               </li>
+
+              {userInfo && userInfo.email == "admin@gmail.com" && (
+                <li className="nev-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle mx-2 text-uppercase"
+                    href="#"
+                    id="admin-menu"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    ADMIN
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby="admin-menu">
+                    <>
+                      <li>
+                        <Link className="dropdown-item" to="admin/dashboard">
+                          ADMIN DASHBOARD
+                        </Link>
+                      </li>
+                      {/* <li>
+                        <Link className="dropdown-item" to="/admin/userlist">
+                          USERS
+                        </Link>
+                      </li> */}
+                    </>
+                  </ul>
+                </li>
+              )}
+
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle mx-2 text-uppercase"

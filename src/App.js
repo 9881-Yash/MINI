@@ -18,6 +18,7 @@ import OrderScreen from './components/OrderScreen';
 import OrderHistoryScreen from './components/OrderHistoryScreen';
 import ProfileScreen from './components/ProfileScreen';
 import SearchScreen from './components/SearchScreen';
+import DashboardScreen from './components/Admin/DashboardScreen';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path='/placeorder' element={<PlaceOrderScreen/>}></Route>
           <Route path='/orderhistory' element={<OrderHistoryScreen/>}></Route>
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/admin/dashboard" element={<DashboardScreen/>}></Route>
           <Route path='/search' element={<SearchScreen/>}></Route>
         </Routes>
       <Footer/>
